@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Cita {
+  idCita     Int      @id @default(autoincrement())
+  fecha      DateTime @db.Date
+  hora       DateTime @db.Time(6)
+  motivo     String
+  idDoctora  Int
+  idPaciente Int
+  estado     String   @default("PROGRAMADA") @db.VarChar(15)
+  Doctora    Doctora  @relation(fields: [idDoctora], references: [idDoctora], onDelete: NoAction, onUpdate: NoAction, map: "fk_cita_doctora")
+  Paciente   Paciente @relation(fields: [idPaciente], references: [idPaciente], onDelete: NoAction, onUpdate: NoAction, map: "fk_cita_paciente")
+}
+
+model Doctora {
+  idDoctora     Int    @id @default(autoincrement())
+  nombre        String @db.VarChar(50)
+  paterno       String @db.VarChar(50)
+  materno       String @db.VarChar(50)
+  numeroCelular String @db.VarChar(20)
+  estado        String @default("ACTIVO") @db.VarChar(10)
+  Cita          Cita[]
+}
+
+model Paciente {
+  idPaciente Int    @id @default(autoincrement())
+  nombre     String @db.VarChar(50)
+  paterno    String @db.VarChar(50)
+  materno    String @db.VarChar(50)
+  estado     String @default("ACTIVO") @db.VarChar(10)
+  Cita       Cita[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model Usuario {
+  idUsuario    Int    @id @default(autoincrement())
+  nombre       String @db.VarChar(100)
+  usuario      String @unique @db.VarChar(50)
+  passwordHash String
+  rol          String @db.VarChar(15)
+  estado       String @default("ACTIVO") @db.VarChar(10)
+}
