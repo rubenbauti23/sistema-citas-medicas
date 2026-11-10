@@ -1,0 +1,307 @@
+
+.contenedor {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #ffffff;
+  color: #253b39;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.panelLogin {
+  min-height: 100vh;
+  padding: 35px 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #253b39;
+}
+
+.logoIcono {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #167c72;
+  color: white;
+  font-size: 27px;
+}
+
+.formularioContenedor {
+  width: 100%;
+  max-width: 420px;
+  margin: 55px auto;
+}
+
+.etiqueta {
+  color: #167c72;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.encabezado h1 {
+  margin: 14px 0 10px;
+  font-size: 34px;
+  color: #253b39;
+}
+
+.encabezado p {
+  color: #7b8987;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 35px;
+}
+
+.campo {
+  margin-bottom: 22px;
+}
+
+.campo label {
+  display: block;
+  margin-bottom: 9px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.campo input {
+  width: 100%;
+  height: 49px;
+  padding: 0 15px;
+  border: 1px solid #dce5e3;
+  border-radius: 9px;
+  outline: none;
+  font-size: 14px;
+  color: #253b39;
+  background: #ffffff;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.campo input:focus {
+  border-color: #167c72;
+  box-shadow: 0 0 0 3px #167c721a;
+}
+
+.campo input::placeholder {
+  color: #aab5b3;
+}
+
+.passwordContenedor {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordContenedor input {
+  padding-right: 85px;
+}
+
+.botonMostrar {
+  position: absolute;
+  right: 12px;
+  border: none;
+  background: transparent;
+  color: #167c72;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.botonLogin {
+  width: 100%;
+  height: 50px;
+  margin-top: 12px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 9px;
+  background: #167c72;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.botonLogin:hover {
+  background: #11685f;
+  transform: translateY(-1px);
+}
+
+.botonLogin span {
+  font-size: 21px;
+}
+
+.mensaje {
+  margin-top: 15px;
+  color: #167c72;
+  font-size: 13px;
+  text-align: center;
+}
+
+.pieFormulario {
+  margin-top: 28px;
+  text-align: center;
+  color: #899693;
+  font-size: 12px;
+}
+
+.footer {
+  color: #9aa6a4;
+  font-size: 11px;
+}
+
+/* Panel visual */
+
+.panelVisual {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  padding: 70px 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(145deg, #167c72, #10574f);
+  color: white;
+}
+
+.contenidoVisual {
+  position: relative;
+  z-index: 2;
+  max-width: 480px;
+  margin: auto;
+}
+
+.iconoMedico {
+  width: 65px;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background: #ffffff20;
+  font-size: 35px;
+  margin-bottom: 35px;
+}
+
+.textoSuperior {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #c4e6df;
+}
+
+.contenidoVisual h2 {
+  margin: 18px 0;
+  font-size: clamp(30px, 3vw, 43px);
+  line-height: 1.2;
+}
+
+.contenidoVisual > p {
+  color: #d2e9e5;
+  font-size: 15px;
+  line-height: 1.8;
+  max-width: 420px;
+}
+
+.tarjetaInformativa {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 45px;
+  padding: 20px;
+  border: 1px solid #ffffff35;
+  border-radius: 12px;
+  background: #ffffff12;
+  backdrop-filter: blur(8px);
+}
+
+.puntoVerde {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #b6e5a5;
+  flex-shrink: 0;
+}
+
+.tarjetaInformativa strong,
+.tarjetaInformativa span {
+  display: block;
+}
+
+.tarjetaInformativa strong {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.tarjetaInformativa span {
+  color: #d2e9e5;
+  font-size: 12px;
+}
+
+.textoInferior {
+  position: relative;
+  z-index: 2;
+  color: #c4e6df;
+  font-size: 12px;
+}
+
+.decoracion {
+  position: absolute;
+  border: 1px solid #ffffff18;
+  border-radius: 50%;
+}
+
+.decoracionUno {
+  width: 500px;
+  height: 500px;
+  right: -180px;
+  top: -180px;
+}
+
+.decoracionDos {
+  width: 350px;
+  height: 350px;
+  right: -100px;
+  top: -100px;
+}
+
+@media (max-width: 850px) {
+  .contenedor {
+    grid-template-columns: 1fr;
+  }
+
+  .panelVisual {
+    display: none;
+  }
+
+  .panelLogin {
+    padding: 30px 7%;
+  }
+
+  .formularioContenedor {
+    margin: 65px auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .encabezado h1 {
+    font-size: 29px;
+  }
+
+  .panelLogin {
+    padding: 25px 6%;
+  }
+}
