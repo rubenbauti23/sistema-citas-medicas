@@ -1,0 +1,308 @@
+
+.aplicacion {
+  min-height: 100vh;
+  background: #f5f8f7;
+}
+
+.contenido {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 38px 45px;
+}
+
+.dashboard {
+  width: 100%;
+}
+
+.encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.fecha {
+  display: block;
+  margin-bottom: 12px;
+  color: #899693;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+.encabezado h1 {
+  margin-bottom: 9px;
+  color: #253b39;
+  font-size: 27px;
+}
+
+.encabezado p,
+.encabezadoSeccion p {
+  color: #899693;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.botonNuevaCita {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 18px;
+  border-radius: 9px;
+  background: #167c72;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+
+.botonNuevaCita:hover {
+  background: #11685f;
+  transform: translateY(-1px);
+}
+
+.botonNuevaCita span {
+  font-size: 20px;
+  line-height: 12px;
+}
+
+.estadisticas {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 19px;
+  margin-bottom: 35px;
+}
+
+.tarjeta {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid #e9efed;
+  border-radius: 13px;
+  background: #ffffff;
+  box-shadow: 0 3px 12px #253b3905;
+}
+
+.tarjetaSuperior {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: #73817e;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.iconoTarjeta {
+  width: 37px;
+  height: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.verde {
+  background: #e4f3ee;
+  color: #167c72;
+}
+
+.azul {
+  background: #e8f0fb;
+  color: #4b7fba;
+}
+
+.naranja {
+  background: #fff2e5;
+  color: #d58a3e;
+}
+
+.rojo {
+  background: #fcebea;
+  color: #d16b65;
+}
+
+.cantidad {
+  display: block;
+  margin: 20px 0 7px;
+  color: #253b39;
+  font-size: 31px;
+  font-weight: 700;
+}
+
+.descripcion {
+  color: #a0aaa8;
+  font-size: 11px;
+}
+
+.seccionAgenda {
+  padding: 25px;
+  border: 1px solid #e9efed;
+  border-radius: 13px;
+  background: white;
+  box-shadow: 0 3px 12px #253b3905;
+}
+
+.encabezadoSeccion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 24px;
+}
+
+.encabezadoSeccion h2 {
+  margin-bottom: 7px;
+  color: #253b39;
+  font-size: 17px;
+}
+
+.verTodo {
+  color: #167c72;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.verTodo:hover {
+  text-decoration: underline;
+}
+
+.tablaContenedor {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.tabla th {
+  padding: 14px 12px;
+  background: #f7f9f8;
+  color: #899693;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.tabla td {
+  padding: 17px 12px;
+  border-bottom: 1px solid #eef2f1;
+  color: #536662;
+  font-size: 12px;
+}
+
+.tabla tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.hora {
+  color: #167c72 !important;
+  font-weight: 700;
+}
+
+.estadoProgramada,
+.estadoAtendida {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.estadoProgramada {
+  background: #e7f3f0;
+  color: #167c72;
+}
+
+.estadoAtendida {
+  background: #eaf0fb;
+  color: #4b7fba;
+}
+
+.pieDashboard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 30px;
+  padding: 10px 3px;
+}
+
+.pieDashboard strong {
+  color: #536662;
+  font-size: 12px;
+}
+
+.pieDashboard p,
+.pieDashboard > span {
+  margin-top: 5px;
+  color: #a0aaa8;
+  font-size: 11px;
+}
+
+@media (max-width: 1050px) {
+  .contenido {
+    padding: 30px 22px;
+  }
+
+  .estadisticas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .contenido {
+    padding: 25px 16px;
+  }
+
+  .encabezado {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .encabezado h1 {
+    font-size: 23px;
+  }
+
+  .estadisticas {
+    gap: 12px;
+  }
+
+  .tarjeta {
+    padding: 16px;
+  }
+
+  .tarjetaSuperior {
+    align-items: flex-start;
+    flex-direction: column-reverse;
+  }
+
+  .cantidad {
+    margin-top: 13px;
+    font-size: 27px;
+  }
+
+  .descripcion {
+    line-height: 1.5;
+  }
+
+  .seccionAgenda {
+    padding: 17px;
+  }
+
+  .encabezadoSeccion {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .pieDashboard {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

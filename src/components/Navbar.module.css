@@ -1,0 +1,282 @@
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #e8efed;
+}
+
+.contenedor {
+  max-width: 1440px;
+  min-height: 76px;
+  margin: 0 auto;
+  padding: 0 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  font-size: 21px;
+  font-weight: 700;
+  color: #253b39;
+}
+
+.logoIcono {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #167c72;
+  color: white;
+  font-size: 27px;
+}
+
+.navegacion {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.enlace {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 15px;
+  border-radius: 9px;
+  color: #73817e;
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.enlace:hover {
+  background: #f2f7f6;
+  color: #167c72;
+}
+
+.enlaceActivo {
+  background: #e7f3f0;
+  color: #167c72;
+}
+
+.iconoEnlace {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.acciones {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.accionContenedor {
+  position: relative;
+}
+
+.botonIcono {
+  position: relative;
+  width: 39px;
+  height: 39px;
+  border: 1px solid #e8efed;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #536662;
+  font-size: 19px;
+}
+
+.botonIcono:hover {
+  background: #f5f8f7;
+}
+
+.indicador {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #e59b56;
+  border: 1px solid white;
+}
+
+.perfil {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px;
+  border: none;
+  background: transparent;
+  text-align: left;
+}
+
+.avatar {
+  width: 39px;
+  height: 39px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #dcefeb;
+  color: #167c72;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.infoPerfil strong,
+.infoPerfil span {
+  display: block;
+}
+
+.infoPerfil strong {
+  margin-bottom: 4px;
+  font-size: 12px;
+  color: #253b39;
+}
+
+.infoPerfil span {
+  font-size: 11px;
+  color: #899693;
+}
+
+.flecha {
+  color: #73817e;
+  font-size: 18px;
+  margin-left: 3px;
+}
+
+.panelFlotante,
+.panelPerfil {
+  position: absolute;
+  top: 53px;
+  right: 0;
+  z-index: 110;
+  width: 260px;
+  padding: 18px;
+  border: 1px solid #e8efed;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 10px 30px #253b3912;
+}
+
+.panelFlotante strong,
+.panelPerfil strong {
+  display: block;
+  margin-bottom: 9px;
+  font-size: 13px;
+  color: #253b39;
+}
+
+.panelFlotante p,
+.panelPerfil p {
+  font-size: 12px;
+  color: #7b8987;
+  line-height: 1.6;
+}
+
+.panelPerfil > span {
+  font-size: 11px;
+  color: #899693;
+}
+
+.separador {
+  height: 1px;
+  margin: 14px 0;
+  background: #e8efed;
+}
+
+.botonMovil {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #e8efed;
+  border-radius: 9px;
+  background: white;
+  color: #167c72;
+  font-size: 21px;
+}
+
+@media (max-width: 1050px) {
+  .contenedor {
+    padding: 0 22px;
+    gap: 15px;
+  }
+
+  .navegacion {
+    gap: 2px;
+  }
+
+  .enlace {
+    padding: 11px 9px;
+    gap: 6px;
+  }
+
+  .acciones {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 760px) {
+  .contenedor {
+    min-height: 68px;
+    padding: 0 18px;
+  }
+
+  .navegacion {
+    display: none;
+    position: absolute;
+    top: 68px;
+    left: 0;
+    right: 0;
+    padding: 12px 18px 18px;
+    background: white;
+    border-bottom: 1px solid #e8efed;
+    box-shadow: 0 12px 20px #253b390d;
+  }
+
+  .navegacionAbierta {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .enlace {
+    padding: 14px;
+  }
+
+  .botonMovil {
+    display: block;
+  }
+
+  .infoPerfil {
+    display: none;
+  }
+
+  .flecha {
+    display: none;
+  }
+
+  .acciones {
+    gap: 9px;
+  }
+}
+
+@media (max-width: 380px) {
+  .logo {
+    font-size: 18px;
+  }
+
+  .contenedor {
+    padding: 0 12px;
+  }
+}

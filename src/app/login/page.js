@@ -2,18 +2,54 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 
 export default function LoginPage() {
+  const router = useRouter();
+
   const [mostrarPassword, setMostrarPassword] = useState(false);
   const [mensaje, setMensaje] = useState("");
+  const [cargando, setCargando] = useState(false);
 
-  function manejarLogin(event) {
+  async function manejarLogin(event) {
     event.preventDefault();
 
-    setMensaje(
-      "La autenticación se implementará en la siguiente etapa."
-    );
+    setMensaje("");
+    setCargando(true);
+
+    const formulario = new FormData(event.currentTarget);
+
+    const datos = {
+      usuario: formulario.get("usuario"),
+      password: formulario.get("password"),
+    };
+
+    try {
+      const respuesta = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(datos),
+      });
+
+      const resultado = await respuesta.json();
+
+      if (!respuesta.ok) {
+        setMensaje(resultado.mensaje || "No se pudo iniciar sesión.");
+        return;
+      }
+
+      // La cookie ya fue creada por el servidor.
+      router.replace("/dashboard");
+      router.refresh();
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      setMensaje("No se pudo conectar con el servidor.");
+    } finally {
+      setCargando(false);
+    }
   }
 
   return (
@@ -44,6 +80,7 @@ export default function LoginPage() {
                 placeholder="Ingresa tu usuario"
                 autoComplete="username"
                 required
+                disabled={cargando}
               />
             </div>
 
@@ -58,6 +95,7 @@ export default function LoginPage() {
                   placeholder="Ingresa tu contraseña"
                   autoComplete="current-password"
                   required
+                  disabled={cargando}
                 />
 
                 <button
@@ -66,19 +104,26 @@ export default function LoginPage() {
                   onClick={() =>
                     setMostrarPassword(!mostrarPassword)
                   }
+                  disabled={cargando}
                 >
                   {mostrarPassword ? "Ocultar" : "Mostrar"}
                 </button>
               </div>
             </div>
 
-            <button type="submit" className={styles.botonLogin}>
-              Ingresar al sistema
-              <span>→</span>
+            <button
+              type="submit"
+              className={styles.botonLogin}
+              disabled={cargando}
+            >
+              {cargando ? "Verificando..." : "Ingresar al sistema"}
+              {!cargando && <span>→</span>}
             </button>
 
             {mensaje && (
-              <p className={styles.mensaje}>{mensaje}</p>
+              <p className={styles.mensaje} role="alert">
+                {mensaje}
+              </p>
             )}
           </form>
 
@@ -93,11 +138,16 @@ export default function LoginPage() {
       </section>
 
       <section className={styles.panelVisual}>
-        <div className={`${styles.decoracion} ${styles.decoracionUno}`}></div>
-        <div className={`${styles.decoracion} ${styles.decoracionDos}`}></div>
+        <div
+          className={`${styles.decoracion} ${styles.decoracionUno}`}
+        ></div>
+
+        <div
+          className={`${styles.decoracion} ${styles.decoracionDos}`}
+        ></div>
 
         <div className={styles.contenidoVisual}>
-          <div className={styles.iconoMedico}>✚</div>
+          <div className={styles.iconoMedico}>⚕</div>
 
           <span className={styles.textoSuperior}>
             GESTIÓN MÉDICA INTELIGENTE
@@ -117,9 +167,12 @@ export default function LoginPage() {
 
           <div className={styles.tarjetaInformativa}>
             <div className={styles.puntoVerde}></div>
+
             <div>
               <strong>Todo en un solo lugar</strong>
-              <span>Organización y control de tus citas médicas.</span>
+              <span>
+                Organización y control de tus citas médicas.
+              </span>
             </div>
           </div>
         </div>

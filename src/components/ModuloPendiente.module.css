@@ -1,0 +1,59 @@
+
+.contenedor {
+  padding: 15px 0;
+}
+
+.etiqueta {
+  color: #167c72;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.contenedor h1 {
+  margin: 13px 0 9px;
+  color: #253b39;
+  font-size: 27px;
+}
+
+.contenedor > p {
+  color: #899693;
+  font-size: 13px;
+}
+
+.tarjeta {
+  max-width: 600px;
+  margin-top: 35px;
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #e9efed;
+  border-radius: 13px;
+  background: white;
+  text-align: center;
+}
+
+.icono {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #e7f3f0;
+  color: #167c72;
+  font-size: 25px;
+}
+
+.tarjeta strong {
+  color: #253b39;
+  font-size: 15px;
+}
+
+.tarjeta span {
+  max-width: 400px;
+  color: #899693;
+  font-size: 12px;
+  line-height: 1.7;
+}
