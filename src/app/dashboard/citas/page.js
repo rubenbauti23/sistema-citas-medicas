@@ -1,11 +1,9 @@
 
-import ModuloPendiente from "@/components/ModuloPendiente";
+import { exigirUsuario } from "@/lib/dal";
+import CitasClient from "./CitasClient";
 
-export default function CitasPage() {
-  return (
-    <ModuloPendiente
-      titulo="Gestión de citas"
-      descripcion="Administra y organiza las citas médicas del consultorio."
-    />
-  );
+export default async function CitasPage() {
+  await exigirUsuario();
+
+  return <CitasClient />;
 }

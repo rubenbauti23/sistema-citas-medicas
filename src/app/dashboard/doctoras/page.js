@@ -1,11 +1,9 @@
 
-import ModuloPendiente from "@/components/ModuloPendiente";
+import { exigirUsuario } from "@/lib/dal";
+import DoctorasClient from "./DoctorasClient";
 
-export default function DoctorasPage() {
-  return (
-    <ModuloPendiente
-      titulo="Gestión de doctoras"
-      descripcion="Administra la información de las doctoras del consultorio."
-    />
-  );
+export default async function DoctorasPage() {
+  await exigirUsuario();
+
+  return <DoctorasClient />;
 }

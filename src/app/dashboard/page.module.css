@@ -1,4 +1,6 @@
 
+/* ESTRUCTURA GENERAL */
+
 .aplicacion {
   min-height: 100vh;
   background: #f5f8f7;
@@ -15,12 +17,14 @@
   width: 100%;
 }
 
+/* ENCABEZADO */
+
 .encabezado {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  margin-bottom: 32px;
+  margin-bottom: 30px;
 }
 
 .fecha {
@@ -32,30 +36,47 @@
 }
 
 .encabezado h1 {
-  margin-bottom: 9px;
+  margin: 0 0 9px;
   color: #253b39;
   font-size: 27px;
+  font-weight: 750;
 }
 
 .encabezado p,
-.encabezadoSeccion p {
+.encabezadoSeccion p,
+.encabezadoAccesos p {
+  margin: 0;
   color: #899693;
   font-size: 13px;
   line-height: 1.6;
 }
 
-.botonNuevaCita {
+.accionesEncabezado {
   display: flex;
   align-items: center;
+  gap: 10px;
+}
+
+.botonNuevaCita,
+.botonActualizar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   gap: 9px;
-  padding: 13px 18px;
+  padding: 12px 17px;
+  border: none;
   border-radius: 9px;
-  background: #167c72;
-  color: white;
+  font-family: inherit;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 650;
+  cursor: pointer;
   transition: 0.2s;
   white-space: nowrap;
+}
+
+.botonNuevaCita {
+  background: #167c72;
+  color: white;
 }
 
 .botonNuevaCita:hover {
@@ -68,20 +89,59 @@
   line-height: 12px;
 }
 
+.botonActualizar {
+  border: 1px solid #e1eae6;
+  background: white;
+  color: #60716d;
+}
+
+.botonActualizar:hover {
+  background: #edf6f3;
+  color: #167c72;
+}
+
+.botonActualizar:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.botonActualizar span {
+  font-size: 19px;
+}
+
+.girando {
+  display: inline-block;
+  animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ESTADÍSTICAS */
+
 .estadisticas {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 19px;
-  margin-bottom: 35px;
+  margin-bottom: 25px;
 }
 
 .tarjeta {
   min-width: 0;
-  padding: 22px;
+  padding: 21px;
   border: 1px solid #e9efed;
   border-radius: 13px;
-  background: #ffffff;
-  box-shadow: 0 3px 12px #253b3905;
+  background: white;
+  box-shadow: 0 3px 12px rgba(37, 59, 57, 0.025);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tarjeta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 59, 57, 0.06);
 }
 
 .tarjetaSuperior {
@@ -95,11 +155,12 @@
 }
 
 .iconoTarjeta {
-  width: 37px;
-  height: 37px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 39px;
+  height: 39px;
+  flex-shrink: 0;
   border-radius: 10px;
   font-size: 19px;
   font-weight: 700;
@@ -127,23 +188,100 @@
 
 .cantidad {
   display: block;
-  margin: 20px 0 7px;
+  margin: 17px 0 6px;
   color: #253b39;
   font-size: 31px;
-  font-weight: 700;
+  font-weight: 750;
 }
 
 .descripcion {
   color: #a0aaa8;
   font-size: 11px;
+  line-height: 1.5;
 }
+
+/* PRÓXIMA CITA */
+
+.proximaSeccion {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  margin-bottom: 25px;
+  padding: 21px 23px;
+  border: 1px solid #cfe8e0;
+  border-radius: 13px;
+  background: linear-gradient(110deg, #eaf6f2, #f7fbf9);
+}
+
+.proximaIcono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #d5eee6;
+  color: #167c72;
+  font-size: 25px;
+}
+
+.proximaInformacion {
+  flex: 1;
+  min-width: 0;
+}
+
+.proximaEtiqueta {
+  display: block;
+  margin-bottom: 6px;
+  color: #167c72;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.9px;
+}
+
+.proximaInformacion h2 {
+  margin: 0 0 5px;
+  color: #253b39;
+  font-size: 16px;
+  font-weight: 750;
+}
+
+.proximaInformacion p {
+  margin: 0;
+  color: #71817d;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.proximaHora {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  padding-left: 20px;
+  border-left: 1px solid #cfe3dc;
+}
+
+.proximaHora span {
+  color: #82918e;
+  font-size: 11px;
+}
+
+.proximaHora strong {
+  color: #167c72;
+  font-size: 24px;
+  font-weight: 750;
+}
+
+/* AGENDA */
 
 .seccionAgenda {
   padding: 25px;
   border: 1px solid #e9efed;
   border-radius: 13px;
   background: white;
-  box-shadow: 0 3px 12px #253b3905;
+  box-shadow: 0 3px 12px rgba(37, 59, 57, 0.025);
 }
 
 .encabezadoSeccion {
@@ -151,24 +289,71 @@
   align-items: center;
   justify-content: space-between;
   gap: 15px;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
-.encabezadoSeccion h2 {
-  margin-bottom: 7px;
+.encabezadoSeccion h2,
+.encabezadoAccesos h2 {
+  margin: 0 0 7px;
   color: #253b39;
   font-size: 17px;
+  font-weight: 750;
 }
 
 .verTodo {
   color: #167c72;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 650;
+  white-space: nowrap;
 }
 
 .verTodo:hover {
   text-decoration: underline;
 }
+
+.controlesAgenda {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 17px;
+}
+
+.resumenAgenda {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #82918e;
+  font-size: 12px;
+}
+
+.puntoVerde {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #32a879;
+}
+
+.filtroDoctora {
+  min-width: 190px;
+  height: 39px;
+  padding: 0 12px;
+  border: 1px solid #e1eae6;
+  border-radius: 8px;
+  outline: none;
+  background: #fbfdfc;
+  color: #536662;
+  font-family: inherit;
+  font-size: 12px;
+  color-scheme: light;
+  cursor: pointer;
+}
+
+.filtroDoctora:focus {
+  border-color: #167c72;
+}
+
+/* TABLA */
 
 .tablaContenedor {
   width: 100%;
@@ -182,16 +367,21 @@
   white-space: nowrap;
 }
 
-.tabla th {
-  padding: 14px 12px;
+.tabla thead {
   background: #f7f9f8;
+}
+
+.tabla th {
+  padding: 14px 13px;
   color: #899693;
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .tabla td {
-  padding: 17px 12px;
+  padding: 16px 13px;
   border-bottom: 1px solid #eef2f1;
   color: #536662;
   font-size: 12px;
@@ -201,13 +391,27 @@
   border-bottom: none;
 }
 
-.hora {
-  color: #167c72 !important;
-  font-weight: 700;
+.tabla tbody tr:hover {
+  background: #fbfdfc;
 }
 
-.estadoProgramada,
-.estadoAtendida {
+.hora {
+  color: #167c72 !important;
+  font-weight: 750;
+}
+
+.paciente {
+  color: #304541 !important;
+  font-weight: 650;
+}
+
+.motivo {
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.insigniaEstado {
   display: inline-block;
   padding: 6px 10px;
   border-radius: 20px;
@@ -220,10 +424,167 @@
   color: #167c72;
 }
 
+.estadoReprogramada {
+  background: #fff2df;
+  color: #a66b13;
+}
+
+.estadoCancelada {
+  background: #fcebea;
+  color: #bd5555;
+}
+
 .estadoAtendida {
   background: #eaf0fb;
   color: #4b7fba;
 }
+
+/* AGENDA VACÍA */
+
+.estadoVacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 45px 15px;
+  text-align: center;
+}
+
+.estadoVacio > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 53px;
+  height: 53px;
+  margin-bottom: 14px;
+  border-radius: 14px;
+  background: #eaf5f1;
+  color: #167c72;
+  font-size: 25px;
+}
+
+.estadoVacio h3 {
+  margin: 0 0 7px;
+  color: #304541;
+  font-size: 15px;
+}
+
+.estadoVacio p {
+  margin: 0 0 17px;
+  color: #899693;
+  font-size: 12px;
+}
+
+.botonVacio {
+  padding: 10px 15px;
+  border-radius: 8px;
+  background: #167c72;
+  color: white;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.avisoReprogramadas {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 17px;
+  padding: 11px 13px;
+  border-radius: 8px;
+  background: #fff8e9;
+  color: #9b701f;
+  font-size: 12px;
+}
+
+.avisoReprogramadas span {
+  font-size: 17px;
+}
+
+/* ACCESOS RÁPIDOS */
+
+.accesosRapidos {
+  margin-top: 30px;
+}
+
+.encabezadoAccesos {
+  margin-bottom: 16px;
+}
+
+.gridAccesos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.acceso {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 17px;
+  border: 1px solid #e9efed;
+  border-radius: 11px;
+  background: white;
+  transition: 0.2s;
+}
+
+.acceso:hover {
+  border-color: #b9ded3;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(37, 59, 57, 0.045);
+}
+
+.accesoIcono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.iconoCita {
+  background: #e4f3ee;
+  color: #167c72;
+}
+
+.iconoPaciente {
+  background: #e8f0fb;
+  color: #4b7fba;
+}
+
+.iconoDoctora {
+  background: #fff2e5;
+  color: #d58a3e;
+}
+
+.acceso > div {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.acceso strong {
+  color: #304541;
+  font-size: 12px;
+}
+
+.acceso > div span {
+  color: #899693;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.acceso > b {
+  color: #9aaba5;
+  font-size: 17px;
+}
+
+/* PIE */
 
 .pieDashboard {
   display: flex;
@@ -241,22 +602,28 @@
 
 .pieDashboard p,
 .pieDashboard > span {
-  margin-top: 5px;
+  margin: 5px 0 0;
   color: #a0aaa8;
   font-size: 11px;
 }
 
-@media (max-width: 1050px) {
+/* RESPONSIVE */
+
+@media (max-width: 1100px) {
   .contenido {
-    padding: 30px 22px;
+    padding: 30px 25px;
   }
 
   .estadisticas {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .gridAccesos {
+    grid-template-columns: 1fr;
+  }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   .contenido {
     padding: 25px 16px;
   }
@@ -270,12 +637,26 @@
     font-size: 23px;
   }
 
+  .accionesEncabezado {
+    width: 100%;
+  }
+
+  .accionesEncabezado > * {
+    flex: 1;
+  }
+
+  .botonNuevaCita,
+  .botonActualizar {
+    padding: 11px 10px;
+    font-size: 12px;
+  }
+
   .estadisticas {
     gap: 12px;
   }
 
   .tarjeta {
-    padding: 16px;
+    padding: 15px;
   }
 
   .tarjetaSuperior {
@@ -283,13 +664,42 @@
     flex-direction: column-reverse;
   }
 
+  .iconoTarjeta {
+    width: 34px;
+    height: 34px;
+  }
+
   .cantidad {
-    margin-top: 13px;
+    margin-top: 12px;
     font-size: 27px;
   }
 
   .descripcion {
-    line-height: 1.5;
+    font-size: 10px;
+  }
+
+  .proximaSeccion {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 17px;
+  }
+
+  .proximaInformacion {
+    flex-basis: calc(100% - 70px);
+  }
+
+  .proximaHora {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0 0;
+    border-top: 1px solid #cfe3dc;
+    border-left: none;
+  }
+
+  .proximaHora strong {
+    font-size: 19px;
   }
 
   .seccionAgenda {
@@ -301,8 +711,33 @@
     flex-direction: column;
   }
 
+  .controlesAgenda {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .filtroDoctora {
+    width: 100%;
+  }
+
+  .tabla th,
+  .tabla td {
+    padding: 13px 11px;
+  }
+
   .pieDashboard {
     align-items: flex-start;
     flex-direction: column;
+  }
+}
+
+@media (max-width: 380px) {
+  .estadisticas {
+    grid-template-columns: 1fr;
+  }
+
+  .tarjetaSuperior {
+    align-items: center;
+    flex-direction: row;
   }
 }

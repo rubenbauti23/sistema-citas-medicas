@@ -1,67 +1,144 @@
 
-import Link from "next/link";
-import styles from "./page.module.css";
+import { prisma } from "@/lib/prisma";
+import { exigirUsuario } from "@/lib/dal";
+import DashboardClient from "./DashboardClient";
 
-const estadisticas = [
-  {
-    titulo: "Citas de hoy",
-    cantidad: "12",
-    descripcion: "Total de citas registradas",
-    icono: "▦",
-    color: "verde",
-  },
-  {
-    titulo: "Programadas",
-    cantidad: "28",
-    descripcion: "Citas pendientes de atención",
-    icono: "◷",
-    color: "azul",
-  },
-  {
-    titulo: "Atendidas",
-    cantidad: "08",
-    descripcion: "Consultas completadas",
-    icono: "✓",
-    color: "naranja",
-  },
-  {
-    titulo: "Canceladas",
-    cantidad: "02",
-    descripcion: "Citas canceladas",
-    icono: "×",
-    color: "rojo",
-  },
-];
+function obtenerFechaBolivia() {
+  const partes = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "America/La_Paz",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date());
 
-const citas = [
-  {
-    hora: "09:00",
-    paciente: "María Fernández",
-    doctora: "Dra. Andrea López",
-    estado: "PROGRAMADA",
-  },
-  {
-    hora: "10:30",
-    paciente: "Carlos Mendoza",
-    doctora: "Dra. Gabriela Rojas",
-    estado: "PROGRAMADA",
-  },
-  {
-    hora: "11:30",
-    paciente: "Lucía Vargas",
-    doctora: "Dra. Andrea López",
-    estado: "ATENDIDA",
-  },
-  {
-    hora: "14:00",
-    paciente: "Pedro Salinas",
-    doctora: "Dra. Gabriela Rojas",
-    estado: "PROGRAMADA",
-  },
-];
+  const obtener = (tipo) =>
+    Number(partes.find((parte) => parte.type === tipo).value);
 
-export default function DashboardPage() {
-  const fecha = new Intl.DateTimeFormat("es-BO", {
+  const anio = obtener("year");
+  const mes = obtener("month");
+  const dia = obtener("day");
+
+  return new Date(Date.UTC(anio, mes - 1, dia));
+}
+
+function obtenerHoraBolivia() {
+  const partes = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "America/La_Paz",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(new Date());
+
+  const hora = Number(
+    partes.find((parte) => parte.type === "hour").value
+  );
+
+  const minuto = Number(
+    partes.find((parte) => parte.type === "minute").value
+  );
+
+  return hora * 60 + minuto;
+}
+
+function convertirHora(hora) {
+  return `${String(hora.getUTCHours()).padStart(2, "0")}:${String(
+    hora.getUTCMinutes()
+  ).padStart(2, "0")}`;
+}
+
+export default async function DashboardPage() {
+  const usuario = await exigirUsuario();
+
+  const fechaHoy = obtenerFechaBolivia();
+  const minutosActuales = obtenerHoraBolivia();
+
+  const [citasHoy, doctoras] = await Promise.all([
+    prisma.cita.findMany({
+      where: {
+        fecha: fechaHoy,
+      },
+      include: {
+        Paciente: true,
+        Doctora: true,
+      },
+      orderBy: {
+        hora: "asc",
+      },
+    }),
+
+    prisma.doctora.findMany({
+      where: {
+        estado: "ACTIVO",
+      },
+      select: {
+        idDoctora: true,
+        nombre: true,
+        paterno: true,
+        materno: true,
+      },
+      orderBy: {
+        nombre: "asc",
+      },
+    }),
+  ]);
+
+  const totalCitas = citasHoy.length;
+
+  const pendientes = citasHoy.filter(
+    (cita) =>
+      cita.estado === "PROGRAMADA" ||
+      cita.estado === "REPROGRAMADA"
+  ).length;
+
+  const atendidas = citasHoy.filter(
+    (cita) => cita.estado === "ATENDIDA"
+  ).length;
+
+  const canceladas = citasHoy.filter(
+    (cita) => cita.estado === "CANCELADA"
+  ).length;
+
+  const reprogramadas = citasHoy.filter(
+    (cita) => cita.estado === "REPROGRAMADA"
+  ).length;
+
+  const citas = citasHoy.map((cita) => ({
+    idCita: cita.idCita,
+    hora: convertirHora(cita.hora),
+    motivo: cita.motivo,
+    estado: cita.estado,
+
+    paciente: [
+      cita.Paciente.nombre,
+      cita.Paciente.paterno,
+      cita.Paciente.materno,
+    ]
+      .filter(Boolean)
+      .join(" "),
+
+    doctora: [
+      cita.Doctora.nombre,
+      cita.Doctora.paterno,
+      cita.Doctora.materno,
+    ]
+      .filter(Boolean)
+      .join(" "),
+
+    idDoctora: cita.idDoctora,
+  }));
+
+  const proximaCita = citas.find((cita) => {
+    const [hora, minuto] = cita.hora.split(":").map(Number);
+    const minutosCita = hora * 60 + minuto;
+
+    return (
+      (cita.estado === "PROGRAMADA" ||
+        cita.estado === "REPROGRAMADA") &&
+      minutosCita >= minutosActuales
+    );
+  }) || null;
+
+  const fechaTexto = new Intl.DateTimeFormat("es-BO", {
     weekday: "long",
     day: "numeric",
     month: "long",
@@ -70,100 +147,19 @@ export default function DashboardPage() {
   }).format(new Date());
 
   return (
-    <div className={styles.dashboard}>
-      <section className={styles.encabezado}>
-        <div>
-          <span className={styles.fecha}>{fecha}</span>
-          <h1>¡Bienvenido a MedAgenda!</h1>
-          <p>
-            Aquí tienes un resumen de la actividad de tu consultorio.
-          </p>
-        </div>
-
-        <Link
-          href="/dashboard/citas"
-          className={styles.botonNuevaCita}
-        >
-          <span>+</span>
-          Nueva cita
-        </Link>
-      </section>
-
-      <section className={styles.estadisticas}>
-        {estadisticas.map((item) => (
-          <article className={styles.tarjeta} key={item.titulo}>
-            <div className={styles.tarjetaSuperior}>
-              <span>{item.titulo}</span>
-              <div className={`${styles.iconoTarjeta} ${styles[item.color]}`}>
-                {item.icono}
-              </div>
-            </div>
-
-            <strong className={styles.cantidad}>
-              {item.cantidad}
-            </strong>
-
-            <span className={styles.descripcion}>
-              {item.descripcion}
-            </span>
-          </article>
-        ))}
-      </section>
-
-      <section className={styles.seccionAgenda}>
-        <div className={styles.encabezadoSeccion}>
-          <div>
-            <h2>Agenda del día</h2>
-            <p>Resumen de las próximas consultas.</p>
-          </div>
-
-          <Link href="/dashboard/citas" className={styles.verTodo}>
-            Ver todas las citas →
-          </Link>
-        </div>
-
-        <div className={styles.tablaContenedor}>
-          <table className={styles.tabla}>
-            <thead>
-              <tr>
-                <th>Hora</th>
-                <th>Paciente</th>
-                <th>Doctora</th>
-                <th>Estado</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {citas.map((cita, index) => (
-                <tr key={index}>
-                  <td className={styles.hora}>{cita.hora}</td>
-                  <td>{cita.paciente}</td>
-                  <td>{cita.doctora}</td>
-                  <td>
-                    <span
-                      className={
-                        cita.estado === "ATENDIDA"
-                          ? styles.estadoAtendida
-                          : styles.estadoProgramada
-                      }
-                    >
-                      {cita.estado}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section className={styles.pieDashboard}>
-        <div>
-          <strong>MedAgenda</strong>
-          <p>Gestión sencilla y organizada de tus citas médicas.</p>
-        </div>
-        <span>Panel de administración</span>
-      </section>
-    </div>
+    <DashboardClient
+      usuario={usuario}
+      fecha={fechaTexto}
+      citas={citas}
+      doctoras={doctoras}
+      proximaCita={proximaCita}
+      estadisticas={{
+        total: totalCitas,
+        pendientes,
+        atendidas,
+        canceladas,
+        reprogramadas,
+      }}
+    />
   );
 }
